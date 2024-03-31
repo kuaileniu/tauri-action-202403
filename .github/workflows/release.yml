@@ -48,7 +48,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-20.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
@@ -64,14 +64,16 @@ jobs:
           tagName: v__VERSION__
           releaseName: v__VERSION__
           releaseDraft: true
-      - name: List the result of the build 
+      - name: List the result of the build
         run: |
-          cd src-tauri/target          
+          cd src-tauri/target  
+          echo "ls target--------------------------------"        
           ls 
-          cd release          
+          cd release      
+          echo "ls release--------------------------------"        
           ls
-    
-      - name : Upload execution
+
+      - name: Upload execution
         uses: actions/upload-artifact@master
         if: always()
         with:
